@@ -31,6 +31,7 @@ export async function fetchProducts(): Promise<Product[]> {
           product.discountPercentage,
           product.rating,
           product.stock,
+          // Data below added as mocked data to each Product to make it more complete
           ["popular", "featured"],
           product.brand || "Generic",
           `SKU-${product.id}`,
@@ -67,8 +68,11 @@ export async function fetchProducts(): Promise<Product[]> {
           product.images
         )
     );
+    // Catches any errors that occur during the try blocks
   } catch (error) {
+    // Calls function to process the caught error
     handleApiError(error);
+    // Re-throws error to proagate it further up the call stack
     throw error;
   }
 }
