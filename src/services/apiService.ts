@@ -4,22 +4,16 @@ import { handleApiError } from "../utils/errorHandler";
 
 // Method used to fetch Product data and return a Promise that resolves to an array of "Product" objects
 export async function fetchProducts(): Promise<Product[]> {
-  // Attempts to fetch data from the specified API endpoint
   try {
     const response = await fetch("https://dummyjson.com/products");
-    // Checks if "response" from the above fetch call was unsuccesful (condition: true)
+
     if (!response.ok) {
-      // If "response" is NOT OK (unsuccessful), throws descriptive Error message
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
 
-    // Parses the JSON body of the successful "response"
     const data = await response.json();
 
-    /*
-    Maps over the "Product's" array obtained from the fetched data
-    For each "Product" object, creates a new 'Product' instance with structured data
-    */
+    // Map each API product into a fully constructed Product instance
     return data.products.map(
       (product: any) =>
         new Product(
@@ -31,15 +25,23 @@ export async function fetchProducts(): Promise<Product[]> {
           product.discountPercentage,
           product.rating,
           product.stock,
-          // Data below added as mocked data to each Product to make it more complete
+          // Mocked tags
           ["popular", "featured"],
+          // Fallback for brand if not provided
           product.brand || "Generic",
+          // Construct SKU from ID
           `SKU-${product.id}`,
+          // Mocked weight
           1.2,
+          // Mocked dimensions object
           { width: 10, height: 5, depth: 2 },
+          // Mocked warranty information
           "1 year warranty",
+          // Mocked shipping info
           "Ships within 3-5 business days",
+          // Availability depends on stock
           product.stock > 0 ? "In Stock" : "Out of Stock",
+          // Mocked reviews array
           [
             {
               rating: 4,
@@ -56,14 +58,18 @@ export async function fetchProducts(): Promise<Product[]> {
               reviewerEmail: "bob@example.com",
             },
           ],
+          // Mocked return policy
           "30-day return policy",
+          // Minimum order quantity mocked as 1
           1,
+          // Mocked meta information
           {
             createdAt: "2024-01-01",
             updatedAt: "2025-05-01",
             barcode: `BC${product.id}XYZ`,
             qrCode: `QR${product.id}XYZ`,
           },
+          // Thumbnail and images from API response
           product.thumbnail,
           product.images
         )
@@ -72,7 +78,7 @@ export async function fetchProducts(): Promise<Product[]> {
   } catch (error) {
     // Calls function to process the caught error
     handleApiError(error);
-    // Re-throws error to proagate it further up the call stack
+    // Re-throws error to progate it further up the call stack
     throw error;
   }
 }

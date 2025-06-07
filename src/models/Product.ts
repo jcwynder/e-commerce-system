@@ -43,12 +43,47 @@ export class Product {
     return calculateTax(this.getPriceWithDiscount(), this.category);
   }
 
-  // Method used to log Product information, including discounted price and tax, to the console
+  // Method used to log Product information
   displayDetails(): void {
     console.log(`Product: ${this.title}`);
-    console.log(`Price: $${this.price}`);
+    console.log(`Description: ${this.description}`);
+    console.log(`Category: ${this.category}`);
+    console.log(`Price: $${this.price.toFixed(2)}`);
     console.log(`Discounted Price: $${this.getPriceWithDiscount().toFixed(2)}`);
-    console.log(`Tax: $${this.getTaxAmount().toFixed(2)}`);
+    console.log(`Discount Percentage: ${this.discountPercentage}%`);
+    console.log(`Rating: ${this.rating}`);
+    console.log(`Stock: ${this.stock}`);
     console.log(`Availability: ${this.availabilityStatus}`);
+    console.log(`Minimum Order Quantity: ${this.minimumOrderQuantity}`);
+    console.log(`Brand: ${this.brand}`);
+    console.log(`SKU: ${this.sku}`);
+    console.log(`Weight: ${this.weight} kg`);
+    console.log(
+      `Dimensions (WxHxD): ${this.dimensions.width} x ${this.dimensions.height} x ${this.dimensions.depth} cm`
+    );
+    console.log(`Warranty Information: ${this.warrantyInformation}`);
+    console.log(`Shipping Information: ${this.shippingInformation}`);
+    console.log(`Return Policy: ${this.returnPolicy}`);
+    console.log(`Tags: ${this.tags.join(", ")}`);
+
+    // Display reviews
+    console.log(`Reviews (${this.reviews.length}):`);
+    this.reviews.forEach((review, index) => {
+      console.log(
+        `  ${index + 1}. ${review.rating} - "${review.comment}" by ${
+          review.reviewerName
+        } on ${review.date}`
+      );
+    });
+
+    // Display meta information
+    console.log(
+      `Meta: Created at ${this.meta.createdAt}, Updated at ${this.meta.updatedAt}`
+    );
+    console.log(`Barcode: ${this.meta.barcode}`);
+    console.log(`QR Code: ${this.meta.qrCode}`);
+
+    // Display tax amount calculated on discounted price
+    console.log(`Tax: $${this.getTaxAmount().toFixed(2)}`);
   }
 }
