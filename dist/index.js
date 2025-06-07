@@ -49,11 +49,6 @@ function main() {
                 console.log(`(Manual Tax on Discounted Price): $${tax.toFixed(2)}`);
                 console.log("--------------------------------------------------\n");
             }
-            // FInal summary example
-            const sample = products[0];
-            const finalPrice = sample.getPriceWithDiscount() + sample.getTaxAmount();
-            console.log("Final Price Calculation (First Product):");
-            console.log(`"${sample.title}" - Final Price: $${finalPrice.toFixed(2)}\n`);
             // Catches an errors that occur during the try blocks
         }
         catch (error) {
